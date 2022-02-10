@@ -1,7 +1,14 @@
 package project.spring.TW.controller;
 
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +30,6 @@ public class LoginController {
 		return "login";
 	}
 	
-	@RequestMapping("/home")
-	public String home() {
-		return "home";
-	}
 	
 	@GetMapping("/account")
 	public String account() {

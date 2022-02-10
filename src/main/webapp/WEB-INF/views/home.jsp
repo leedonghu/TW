@@ -53,37 +53,57 @@
 </nav>
 </div>
 <br>
+<p>leapYearCheck is ${leapYearCheck }</p>
+<br>
+<p>month is ${month }</p>
+<br>
+<p>day is ${day }</p>
 
-
-<div class="day">
-	<ul style="width: 800px; height: 72px; display: block;">
-		<li>
-			<div>
-				<span>1</span>
-			</div>
-		</li>
-		<li>
-			<div>
-				<span>2</span>
-			</div>
-		</li>
-		<li>
-			<div>
-				<span>3</span>
-			</div>
-		</li>
-		<li>
-			<div>
-				<span>4</span>
-			</div>
-		</li>
-		<li>
-			<div>
-				<span>5</span>
-			</div>
-		</li>
-		
-	</ul>
+<div class="row">
+	<nav aria-label="Page navigation example">
+  		<ul class="pagination">
+  			<c:forEach var="dateVO" items="${dateArr }">
+  				<li class="page-item">
+					<a class="page-link" href="#">
+						<span>${dateVO.month}월</span>
+						<strong>${dateVO.day }일</strong>
+					</a>
+				</li>
+  			</c:forEach>
+  			<!-- 
+			<li class="page-item">
+				<a class="page-link" href="#">
+					<span>${month }월</span>
+					<strong>${day }일</strong>
+				</a>
+			</li>
+   	 		<li class="page-item">
+				<a class="page-link" href="#">
+					<span>${month }월</span>
+					<strong>${day +1}일</strong>
+				</a>
+			</li>
+    		<li class="page-item">
+				<a class="page-link" href="#">
+					<span>${month }월</span>
+					<strong>${day +2}일</strong>
+				</a>
+			</li>
+    		<li class="page-item">
+				<a class="page-link" href="#">
+					<span>${month }월</span>
+					<strong>${day +3}일</strong>
+				</a>
+			</li>
+    		<li class="page-item">
+				<a class="page-link" href="#">
+					<span>${month }월</span>
+					<strong>${day +4}일</strong>
+				</a>
+			</li>
+  			 -->
+  		</ul>
+	</nav>
 </div>
 
 </body>
