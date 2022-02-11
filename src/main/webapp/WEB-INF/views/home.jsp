@@ -60,50 +60,48 @@
 <p>day is ${day }</p>
 
 <div class="row">
-	<nav aria-label="Page navigation example">
-  		<ul class="pagination">
-  			<c:forEach var="dateVO" items="${dateArr }">
-  				<li class="page-item">
-					<a class="page-link" href="#">
-						<span>${dateVO.month}월</span>
-						<strong>${dateVO.day }일</strong>
-					</a>
+	<div class="sect-date">
+		<nav aria-label="Page navigation example">
+  			<ul class="pagination">
+  				<c:forEach var="dateVO" items="${dateArr }">
+  					<li class="page-item">
+						<a class="page-link" href="#">
+							<span>${dateVO.month}월</span>
+							<strong>${dateVO.day }일</strong>
+						</a>
+					</li>
+  				</c:forEach>
+  			</ul>
+		</nav>
+	</div>
+	<div class="sect-time">
+		<ul>
+			<c:forEach var="tvo" items="${tvoArr }">
+				<li>
+					<div class="movie-time">
+						<div class="movie-info">
+							${tvo.movieName }
+						</div>
+						<c:forEach var="i" items="${tvo.hallNumber }" varStatus="status">
+							<div class="movie-hall">
+								<div class="info-hall">
+								${i }
+								</div>
+								<c:forEach var="j" items="${tvo.movieTime[status.index] }">
+									<div class="info-time">
+										<c:forEach var="k" items="${j }">
+											${k }
+										</c:forEach>
+									</div>
+								</c:forEach>
+							</div>
+						</c:forEach>
+					</div>
 				</li>
-  			</c:forEach>
-  			<!-- 
-			<li class="page-item">
-				<a class="page-link" href="#">
-					<span>${month }월</span>
-					<strong>${day }일</strong>
-				</a>
-			</li>
-   	 		<li class="page-item">
-				<a class="page-link" href="#">
-					<span>${month }월</span>
-					<strong>${day +1}일</strong>
-				</a>
-			</li>
-    		<li class="page-item">
-				<a class="page-link" href="#">
-					<span>${month }월</span>
-					<strong>${day +2}일</strong>
-				</a>
-			</li>
-    		<li class="page-item">
-				<a class="page-link" href="#">
-					<span>${month }월</span>
-					<strong>${day +3}일</strong>
-				</a>
-			</li>
-    		<li class="page-item">
-				<a class="page-link" href="#">
-					<span>${month }월</span>
-					<strong>${day +4}일</strong>
-				</a>
-			</li>
-  			 -->
-  		</ul>
-	</nav>
+			</c:forEach>
+		</ul>
+	</div>
+	
 </div>
 
 </body>

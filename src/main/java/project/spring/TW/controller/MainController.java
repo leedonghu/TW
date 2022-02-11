@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.Setter;
 import project.spring.TW.domain.DateVO;
+import project.spring.TW.domain.TicketingVO;
 import project.spring.TW.service.MainService;
 
 @Controller
@@ -19,12 +20,16 @@ public class MainController {
 	@RequestMapping("/home")
 	public String home(Model model) {
 		DateVO[] dateArr = service.calcDate();
+		
+		
+		TicketingVO[] tvoArr =  service.ticketingInfo(dateArr[0]);
 
 //		for(int i=0; i<dateArr.length; i++) {
 //			System.out.println(dateArr[i].getMonth());
 //			System.out.println(dateArr[i].getDay());
 //		}
 		model.addAttribute("dateArr", dateArr);
+		model.addAttribute("tvoArr", tvoArr);
 		
 		return "home";
 	}
