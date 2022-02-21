@@ -10,7 +10,18 @@
 <head>
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
-
+<style type="text/css">
+	
+	.box{
+		list-style-type: none;
+		float: left;
+		outline: 1px dotted red;
+	}
+	
+	.div-menu{
+		
+	}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
@@ -51,7 +62,6 @@
     </div>
   </div>
 </nav>
-</div>
 <br>
 <p>leapYearCheck is ${leapYearCheck }</p>
 <br>
@@ -74,10 +84,14 @@
   			</ul>
 		</nav>
 	</div>
+	
+</div>
+
+<div class="row">
 	<div class="sect-time">
-		<ul>
+		<ul class="menu">
 			<c:forEach var="tvo" items="${tvoArr }">
-				<li>
+				<li class="box">
 					<div class="movie-time">
 						<div class="movie-info">
 							${tvo.movieName }
@@ -101,9 +115,42 @@
 			</c:forEach>
 		</ul>
 	</div>
-	
+
 </div>
 
+<br>
+<div class="row">
+	<div class="sect-time">
+		<div class="div-menu">
+			<c:forEach var="tvo" items="${tvoArr }">
+				<div class="div-box">
+					<div class="movie-time">
+						<div class="movie-info">
+							${tvo.movieName }
+						</div>
+						<c:forEach var="i" items="${tvo.hallNumber }" varStatus="status">
+							<div class="movie-hall">
+								<div class="info-hall">
+								${i }
+								</div>
+								<c:forEach var="j" items="${tvo.movieTime[status.index] }">
+									<div class="info-time">
+										<c:forEach var="k" items="${j }">
+											${k }
+										</c:forEach>
+									</div>
+								</c:forEach>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+
+</div>
+
+</div>
 </body>
 
 
