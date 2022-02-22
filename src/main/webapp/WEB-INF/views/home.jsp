@@ -11,16 +11,20 @@
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
 <style type="text/css">
-	
-	.box{
-		list-style-type: none;
-		float: left;
-		outline: 1px dotted red;
-	}
-	
-	.div-menu{
-		
-	}
+.box {
+	list-style-type: none;
+	float: left;
+	outline: 1px dotted red;
+}
+
+.sect-time {
+	border: 1px solid black;
+	width: 100%;
+}
+
+.div-box {
+	border: 1px solid black;
+}
 </style>
 <title>Insert title here</title>
 </head>
@@ -102,11 +106,11 @@
 								${i }
 								</div>
 								<c:forEach var="j" items="${tvo.movieTime[status.index] }">
-									<div class="info-time">
+									<span class="info-time">
 										<c:forEach var="k" items="${j }">
 											${k }
 										</c:forEach>
-									</div>
+									</span>
 								</c:forEach>
 							</div>
 						</c:forEach>
@@ -134,11 +138,13 @@
 								${i }
 								</div>
 								<c:forEach var="j" items="${tvo.movieTime[status.index] }">
-									<div class="info-time">
+									<span class="info-time">
 										<c:forEach var="k" items="${j }">
-											${k }
+											<button>
+												${k }
+											</button>
 										</c:forEach>
-									</div>
+									</span>
 								</c:forEach>
 							</div>
 						</c:forEach>
