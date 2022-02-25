@@ -79,7 +79,7 @@
   			<ul class="pagination">
   				<c:forEach var="dateVO" items="${dateArr }">
   					<li class="page-item">
-						<a class="page-link" href="#">
+						<a class="page-link" href="#" id="date" data-month="${dateVO.month }" data-day="${dateVO.day}">
 							<span>${dateVO.month}월</span>
 							<strong>${dateVO.day }일</strong>
 						</a>
@@ -156,7 +156,37 @@
 
 </div>
 
+<div id="test">
+
 </div>
+
+</div>
+<script type="text/javascript" src="${appRoot }/resources/js/account.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("a.page-link").click(function(){
+		let month = $(this).attr("data-month");
+		let day = $(this).attr("data-day");
+		console.log(month);
+		console.log(day);
+		let data = {month : month,
+				day: day};
+		console.log(data);
+		$.ajax({
+			url: "${appRoot}/main/movieTime",
+			type: "post",
+			data: JSON.stringify(data),
+			contentType: "application/json",
+			success:function(data){
+				console.log(data);
+			},
+			error:function(){
+				console.log("error");
+			}
+		})
+	});
+});
+</script>
 </body>
 
 

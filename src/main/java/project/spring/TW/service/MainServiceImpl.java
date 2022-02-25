@@ -3,14 +3,20 @@ package project.spring.TW.service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.Setter;
 import project.spring.TW.domain.DateVO;
 import project.spring.TW.domain.TicketingVO;
+import project.spring.TW.mapper.MovieMapper;
 
 @Service
 public class MainServiceImpl implements MainService {
-
+	
+	@Setter(onMethod_ = @Autowired)
+	MovieMapper mapper;
+	
 	@Override
 	public DateVO[] calcDate() {
 		int[] nonLeapYear = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30 ,31};
@@ -119,6 +125,14 @@ public class MainServiceImpl implements MainService {
 		tvoArr[2] = tvo3;
 		
 		return tvoArr;
+		
+	}
+
+	@Override
+	public void movieTime(int month, int day) {
+		mapper.movieTime();
+		
+		
 		
 	}
 

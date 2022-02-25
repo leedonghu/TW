@@ -7,4 +7,6 @@ public interface MainService {
 	public DateVO[] calcDate();
 
 	public TicketingVO[] ticketingInfo(DateVO vo);
+
+	public void movieTime(int month, int day);
 }
