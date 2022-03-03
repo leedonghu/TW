@@ -5,6 +5,20 @@
   
 <mapper namespace="project.spring.TW.mapper.MovieMapper">
 
-<select id="movieTime" resultType=""></select>
+<select id="movieTime" resultType="int">
+	SELECT COUNT(*) FROM MOVIE_INFO
+</select>
 
+<select id="movieAmount" resultType="int">
+	SELECT COUNT(m.movie_name) cnt
+	FROM (SELECT movie_name, count(movie_name) 
+		FROM MOVIE_INFO 
+		GROUP BY movie_name) AS m
+</select>
+
+<select id="movieNames" resultType="String">
+	SELECT movie_name
+	FROM MOVIE_INFO
+	GROUP BY movie_name
+</select>
 </mapper>

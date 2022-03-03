@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 import project.spring.TW.domain.DateVO;
 import project.spring.TW.domain.TicketingVO;
 import project.spring.TW.mapper.MovieMapper;
 
+@Log4j
 @Service
 public class MainServiceImpl implements MainService {
 	
@@ -130,6 +132,14 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public void movieTime(int month, int day) {
+		
+		int movieAmount= mapper.movieAmount();
+		String[] movieNames = mapper.movieNames();
+		TicketingVO[] tvoArr = new TicketingVO[movieAmount];
+		
+		for(int i=0; i<movieNames.length; i++) {
+			log.info(movieNames[i]);
+		}
 		mapper.movieTime();
 		
 		
