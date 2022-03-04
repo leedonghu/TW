@@ -21,4 +21,23 @@
 	FROM MOVIE_INFO
 	GROUP BY movie_name
 </select>
+
+<select id="movieHallCount" resultType="int">
+	SELECT count(a.movie_start_time) cnt 
+	FROM (SELECT movie_start_time, movie_name from movie_info where movie_name = #{movieName} GROUP BY hall_number) a;
+</select>
+
+<select id="hallNumber" resultType="String">
+	SELECT hall_number
+	FROM MOVIE_INFO
+	WHERE movie_name = #{movieName}
+	GROUP BY hall_number
+</select>
+
+<select id="movieTimes" resultType="String">
+	SELECT movie_start_time
+	FROM MOVIE_INFO
+	WHERE movie_name = #{movieName}
+		  and hall_number = #{hallNumber}
+</select>
 </mapper>

@@ -138,7 +138,33 @@ public class MainServiceImpl implements MainService {
 		TicketingVO[] tvoArr = new TicketingVO[movieAmount];
 		
 		for(int i=0; i<movieNames.length; i++) {
-			log.info(movieNames[i]);
+			TicketingVO tvo = new TicketingVO();
+			
+			tvo.setMovieName(movieNames[i]);
+			
+			int movieHallCount = mapper.movieHallCount(movieNames[i]);
+//			log.info(movieNames[i] + " " +movieHallCount);
+			String[] hallNumber = mapper.hallNumber(movieNames[i]);
+			tvo.setHallNumber(hallNumber);
+			
+			String[][] movieTime = new String[hallNumber.length][];
+			for(int j=0; j<hallNumber.length; j++) {
+				String[] movieTimes = mapper.movieTimes(movieNames[i], hallNumber[j]);
+				movieTime[j] = movieTimes;
+				for(int k=0; k<movieTimes.length; k++) {
+//					log.info(movieNames[i]+ " " +hallNumber[j] + " " +movieTimes[k]);
+				}
+			}
+			tvo.setMovieTime(movieTime);
+			tvoArr[i] = tvo;
+		}
+		
+		for(int i=0; i<tvoArr.length; i++) {
+			for(int j=0; j<tvoArr[i].getHallNumber().length; j++) {
+				for(int k=0; k<tvoArr[i].getMovieTime()[j].length; k++) {
+					log.info(tvoArr[i].getMovieName() + " " + tvoArr[i].getHallNumber()[j] + " " + tvoArr[i].getMovieTime()[j][k]);
+				}
+			}
 		}
 		mapper.movieTime();
 		
