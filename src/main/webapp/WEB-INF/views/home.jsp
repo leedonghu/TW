@@ -179,6 +179,32 @@ $(function(){
 			contentType: "application/json",
 			success:function(data){
 				console.log(data);
+				console.log(data[0]);
+				console.log(data[0].hallNumber.length);
+				console.log(data[0].movieTime[0]);
+				
+				for(let i=0; i<data.length; i++){
+					for(let j=0; j<data[i].hallNumber.length; j++){
+						for(let k=0; k<data[i].movieTime[j].length; k++){
+							console.log(data[i].movieName + " " + data[i].hallNumber[j] + " " + data[i].movieTime[j][k]);
+						}
+					}
+				}
+				
+				/*
+				$.each(data, function(i, t){
+					console.log(i);
+					console.log(t.hallNumber);
+				});
+				/*
+				for(let i = 0; i<data.length; i++){
+					for(let j = 0; j<${data[i].HallNumber.length}; j++ ){
+						for(let k = 0; k<${data[i].MovieTime[j].length}; k++){
+							console.log(data[i].getMovieName() + " " + data[i].getHallNumber()[j] + " " + data[i].getMovieTime()[j][k])
+						}
+					}
+				}
+				*/
 			},
 			error:function(){
 				console.log("error");

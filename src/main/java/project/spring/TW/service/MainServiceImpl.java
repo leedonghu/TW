@@ -131,7 +131,7 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public void movieTime(int month, int day) {
+	public TicketingVO[] movieTime(int month, int day) {
 		
 		int movieAmount= mapper.movieAmount();
 		String[] movieNames = mapper.movieNames();
@@ -166,8 +166,8 @@ public class MainServiceImpl implements MainService {
 				}
 			}
 		}
-		mapper.movieTime();
 		
+		return tvoArr;
 		
 		
 	}

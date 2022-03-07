@@ -8,5 +8,5 @@ public interface MainService {
 
 	public TicketingVO[] ticketingInfo(DateVO vo);
 
-	public void movieTime(int month, int day);
+	public TicketingVO[] movieTime(int month, int day);
 }

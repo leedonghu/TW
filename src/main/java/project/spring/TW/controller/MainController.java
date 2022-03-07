@@ -44,13 +44,13 @@ public class MainController {
 	
 	@PostMapping("/movieTime")
 	@ResponseBody
-	public String movieTime(@RequestBody DateVO vo) {
+	public TicketingVO[] movieTime(@RequestBody DateVO vo) {
 		int month = vo.getMonth();
 		int day = vo.getDay();
 		log.info(month);
 		log.info(day);
 		
-		service.movieTime(month, day);
-		return "SUCCESS";
+		TicketingVO[] tvoArr = service.movieTime(month, day);
+		return tvoArr;
 	}
 }
