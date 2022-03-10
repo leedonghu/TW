@@ -16,6 +16,7 @@ public interface MovieMapper {
 
 	public String[] hallNumber(String movieName);
 
-	public String[] movieTimes(@Param("movieName") String movieName, @Param("hallNumber")String hallNumber);
+	public String[] movieTimes(@Param("movieName") String movieName, @Param("hallNumber")String hallNumber, @Param("nowTime")String nowTime, @Param("today") boolean today);
+
 
 }

@@ -1,7 +1,9 @@
 package project.spring.TW.service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -131,45 +133,62 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public TicketingVO[] movieTime(int month, int day) {
+	public TicketingVO[] movieTime(int month, int day, boolean today) {
 		
 		int movieAmount= mapper.movieAmount();
 		String[] movieNames = mapper.movieNames();
 		TicketingVO[] tvoArr = new TicketingVO[movieAmount];
+		
+		SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm");
+		
+		Date now = new Date();
+		String nowTime = sdf1.format(now);
 		
 		for(int i=0; i<movieNames.length; i++) {
 			TicketingVO tvo = new TicketingVO();
 			
 			tvo.setMovieName(movieNames[i]);
 			
-			int movieHallCount = mapper.movieHallCount(movieNames[i]);
-//			log.info(movieNames[i] + " " +movieHallCount);
+		
 			String[] hallNumber = mapper.hallNumber(movieNames[i]);
 			tvo.setHallNumber(hallNumber);
 			
 			String[][] movieTime = new String[hallNumber.length][];
 			for(int j=0; j<hallNumber.length; j++) {
-				String[] movieTimes = mapper.movieTimes(movieNames[i], hallNumber[j]);
+				String[] movieTimes = mapper.movieTimes(movieNames[i], hallNumber[j], nowTime, today);
 				movieTime[j] = movieTimes;
-				for(int k=0; k<movieTimes.length; k++) {
-//					log.info(movieNames[i]+ " " +hallNumber[j] + " " +movieTimes[k]);
-				}
+				
 			}
 			tvo.setMovieTime(movieTime);
 			tvoArr[i] = tvo;
 		}
 		
-		for(int i=0; i<tvoArr.length; i++) {
-			for(int j=0; j<tvoArr[i].getHallNumber().length; j++) {
-				for(int k=0; k<tvoArr[i].getMovieTime()[j].length; k++) {
-					log.info(tvoArr[i].getMovieName() + " " + tvoArr[i].getHallNumber()[j] + " " + tvoArr[i].getMovieTime()[j][k]);
-				}
-			}
-		}
+//		for(int i=0; i<tvoArr.length; i++) {
+//			for(int j=0; j<tvoArr[i].getHallNumber().length; j++) {
+//				for(int k=0; k<tvoArr[i].getMovieTime()[j].length; k++) {
+//					log.info(tvoArr[i].getMovieName() + " " + tvoArr[i].getHallNumber()[j] + " " + tvoArr[i].getMovieTime()[j][k]);
+//				}
+//			}
+//		}
 		
 		return tvoArr;
 		
 		
 	}
+
+	@Override
+	public boolean today(int month, int day) {
+		LocalDate now = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		String formatedNow = now.format(formatter);
+		
+		
+		int tMonth = Integer.parseInt(formatedNow.substring(4,6));
+		int tDay = Integer.parseInt(formatedNow.substring(6));
+		
+		return month == tMonth && day == tDay ? true : false;
+	}
+
+	
 
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,15 +43,19 @@ public class MainController {
 		return "home";
 	}
 	
-	@PostMapping("/movieTime")
-	@ResponseBody
-	public TicketingVO[] movieTime(@RequestBody DateVO vo) {
-		int month = vo.getMonth();
-		int day = vo.getDay();
+	@RequestMapping("/movieTime/{month}/{day}")
+	public String movieTime(@PathVariable("month") int month, @PathVariable("day") int day, Model model) {
+		DateVO[] dateArr = service.calcDate();
+		model.addAttribute("dateArr", dateArr);
+		
+		boolean today = service.today(month, day);
 		log.info(month);
 		log.info(day);
 		
-		TicketingVO[] tvoArr = service.movieTime(month, day);
-		return tvoArr;
+		TicketingVO[] tvoArr = service.movieTime(month, day, today);
+		model.addAttribute("tvoArr", tvoArr);
+		return "movieTime";
+		
+		
 	}
 }

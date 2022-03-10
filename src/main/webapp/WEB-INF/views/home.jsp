@@ -79,7 +79,7 @@
   			<ul class="pagination">
   				<c:forEach var="dateVO" items="${dateArr }">
   					<li class="page-item">
-						<a class="page-link" href="#" id="date" data-month="${dateVO.month }" data-day="${dateVO.day}">
+						<a class="page-link" href="${appRoot }/main/movieTime/${dateVO.month}/${dateVO.day}" id="date" data-month="${dateVO.month }" data-day="${dateVO.day}">
 							<span>${dateVO.month}월</span>
 							<strong>${dateVO.day }일</strong>
 						</a>
@@ -164,6 +164,7 @@
 <script type="text/javascript" src="${appRoot }/resources/js/account.js"></script>
 <script type="text/javascript">
 $(function(){
+	/*
 	$("a.page-link").click(function(){
 		let month = $(this).attr("data-month");
 		let day = $(this).attr("data-day");
@@ -182,8 +183,9 @@ $(function(){
 				console.log(data[0]);
 				console.log(data[0].hallNumber.length);
 				console.log(data[0].movieTime[0]);
-				
+				let output = '';
 				for(let i=0; i<data.length; i++){
+					output += '';
 					for(let j=0; j<data[i].hallNumber.length; j++){
 						for(let k=0; k<data[i].movieTime[j].length; k++){
 							console.log(data[i].movieName + " " + data[i].hallNumber[j] + " " + data[i].movieTime[j][k]);
@@ -204,13 +206,14 @@ $(function(){
 						}
 					}
 				}
-				*/
+				
 			},
 			error:function(){
 				console.log("error");
 			}
 		})
 	});
+	*/
 });
 </script>
 </body>
