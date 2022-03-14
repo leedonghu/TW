@@ -105,10 +105,15 @@
 								<div class="info-hall">
 								${i }
 								</div>
-								<c:forEach var="j" items="${tvo.movieTime[status.index] }">
+								<c:forEach var="j" items="${tvo.movieStartTime[status1.index] }">
 									<span class="info-time">
-										<c:forEach var="k" items="${j }">
-											${k }
+										<c:forEach var="k" items="${j }" varStatus="status1">
+											<button class="myBtn">
+												${k }
+											</button>
+											<input hidden>
+												${tvo.movieEndTime[status1.index][status2.index] }
+											</input>
 										</c:forEach>
 									</span>
 								</c:forEach>
@@ -137,12 +142,15 @@
 								<div class="info-hall">
 								${i }
 								</div>
-								<c:forEach var="j" items="${tvo.movieTime[status.index] }">
+								<c:forEach var="j" items="${tvo.movieStartTime[status1.index] }">
 									<span class="info-time">
-										<c:forEach var="k" items="${j }">
-											<button>
+										<c:forEach var="k" items="${j }" varStatus="status1">
+											<button class="myBtn">
 												${k }
 											</button>
+											<input hidden>
+												${tvo.movieEndTime[status1.index][status2.index] }
+											</input>
 										</c:forEach>
 									</span>
 								</c:forEach>

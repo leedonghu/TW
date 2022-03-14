@@ -95,7 +95,7 @@ public class MainServiceImpl implements MainService {
 		int[] hallSize = {138, 158};
 		tvo1.setDay(vo.getDay());
 		tvo1.setMonth(vo.getMonth());
-		tvo1.setMovieTime(movieTime);
+		tvo1.setMovieStartTime(movieTime);
 		tvo1.setHallNumber(hallNumber);
 		tvo1.setMovieName("가나다라");
 		tvo1.setHallSize(hallSize);
@@ -108,7 +108,7 @@ public class MainServiceImpl implements MainService {
 		int[] hallSize2 = {120};
 		tvo2.setDay(vo.getDay());
 		tvo2.setMonth(vo.getMonth());
-		tvo2.setMovieTime(movieTime2);
+		tvo2.setMovieStartTime(movieTime2);
 		tvo2.setHallNumber(hallNumber2);
 		tvo2.setMovieName("355");
 		tvo2.setHallSize(hallSize2);
@@ -121,7 +121,7 @@ public class MainServiceImpl implements MainService {
 		int[] hallSize3 = {156, 183, 126};
 		tvo3.setDay(vo.getDay());
 		tvo3.setMonth(vo.getMonth());
-		tvo3.setMovieTime(movieTime3);
+		tvo3.setMovieStartTime(movieTime3);
 		tvo3.setHallNumber(hallNumber3);
 		tvo3.setMovieName("해적");
 		tvo3.setHallSize(hallSize3);
@@ -153,23 +153,29 @@ public class MainServiceImpl implements MainService {
 			String[] hallNumber = mapper.hallNumber(movieNames[i]);
 			tvo.setHallNumber(hallNumber);
 			
-			String[][] movieTime = new String[hallNumber.length][];
+			String[][] movieStartTime = new String[hallNumber.length][];
+			String[][] movieEndTime = new String[hallNumber.length][];
 			for(int j=0; j<hallNumber.length; j++) {
-				String[] movieTimes = mapper.movieTimes(movieNames[i], hallNumber[j], nowTime, today);
-				movieTime[j] = movieTimes;
-				
+				String[] movieStartTimes = mapper.movieStartTimes(movieNames[i], hallNumber[j], nowTime, today);
+				movieStartTime[j] = movieStartTimes;
+				String[] movieEndTimes = mapper.movieEndTimes(movieNames[i], hallNumber[j], nowTime, today);
+				movieEndTime[j] = movieEndTimes;
 			}
-			tvo.setMovieTime(movieTime);
+			tvo.setMovieStartTime(movieStartTime);
+			tvo.setMovieEndTime(movieEndTime);
 			tvoArr[i] = tvo;
 		}
 		
 //		for(int i=0; i<tvoArr.length; i++) {
 //			for(int j=0; j<tvoArr[i].getHallNumber().length; j++) {
-//				for(int k=0; k<tvoArr[i].getMovieTime()[j].length; k++) {
-//					log.info(tvoArr[i].getMovieName() + " " + tvoArr[i].getHallNumber()[j] + " " + tvoArr[i].getMovieTime()[j][k]);
+//				for(int k=0; k<tvoArr[i].getMovieEndTime()[j].length; k++) {
+//					log.info(tvoArr[i].getMovieName() + " " + tvoArr[i].getHallNumber()[j] + " " + tvoArr[i].getMovieEndTime()[j][k]);
 //				}
 //			}
 //		}
+		
+		
+
 		
 		return tvoArr;
 		

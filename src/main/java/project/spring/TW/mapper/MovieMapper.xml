@@ -34,7 +34,7 @@
 	GROUP BY hall_number
 </select>
 
-<select id="movieTimes" resultType="String">
+<select id="movieStartTimes" resultType="String">
 	
 	SELECT movie_start_time
 	FROM MOVIE_INFO
@@ -50,6 +50,25 @@
 		</when>
 	</choose>
 </select>
+
+<select id="movieEndTimes" resultType="String">
+	
+	SELECT movie_end_time
+	FROM MOVIE_INFO
+	WHERE movie_name = #{movieName}
+		  and hall_number = #{hallNumber}
+	
+	
+	<choose>
+		<when test="today == true">
+			<![CDATA[
+				and movie_start_time > #{nowTime}
+			]]>
+		</when>
+	</choose>
+</select>
+
+
 
 
 </mapper>

@@ -1,9 +1,12 @@
 package project.spring.TW.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,9 +47,18 @@ public class MainController {
 	}
 	
 	@RequestMapping("/movieTime/{month}/{day}")
+	@Transactional
 	public String movieTime(@PathVariable("month") int month, @PathVariable("day") int day, Model model) {
 		DateVO[] dateArr = service.calcDate();
 		model.addAttribute("dateArr", dateArr);
+		
+		Date year = new Date();
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy");
+		String todayYear = format1.format(year);
+		
+		model.addAttribute("year", todayYear);
+		model.addAttribute("month", month);
+		model.addAttribute("day", day);
 		
 		boolean today = service.today(month, day);
 		log.info(month);

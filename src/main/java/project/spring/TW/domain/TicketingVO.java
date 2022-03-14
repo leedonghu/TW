@@ -9,6 +9,7 @@ public class TicketingVO {
 	private int day;
 	private String movieName;
 	private String[] hallNumber;
-	private String[][] movieTime;
+	private String[][] movieStartTime;
+	private String[][] movieEndTime;
 	private int[] hallSize;
 }

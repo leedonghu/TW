@@ -23,7 +23,11 @@ select count(a.movie_start_time) cnt FROM (SELECT movie_start_time, movie_name f
 SELECT movie_start_time, movie_name, hall_number from movie_info  where movie_name = '회전' and movie_start_time > '11:00';
 SELECT hall_number from movie_info  where movie_name = '회전' GROUP BY hall_number;
 
-SELECT movie_start_time from movie_info WHERE movie_name = '회전' and hall_number = 5 and movie_start_time > '11:00';
+SELECT movie_start_time from movie_info WHERE movie_name = '회전' and hall_number = 2 and movie_start_time > '11:00';
+SELECT movie_end_time from movie_info WHERE movie_name = '회전' and hall_number = 2 and movie_start_time > '11:00';
+
+SELECT * from movie_info ;
+
 
 SELECT COUNT(*)
 FROM information_schema.columns
