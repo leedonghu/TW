@@ -12,5 +12,9 @@ public interface MainService {
 
 	public boolean today(int month, int day);
 
+	public int[] ticketing(TicketingVO vo);
+
+	public String[] seatName(int lineSize, int lastSeat);
+
 	
 }

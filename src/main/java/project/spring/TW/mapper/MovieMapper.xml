@@ -68,7 +68,11 @@
 	</choose>
 </select>
 
-
+<select id="hallSize" resultType="int">
+	SELECT hall_size
+	FROM THEATER_INFO
+	WHERE hall_number = #{hallNumber}
+</select>
 
 
 </mapper>

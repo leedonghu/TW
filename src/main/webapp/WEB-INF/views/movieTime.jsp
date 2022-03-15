@@ -100,18 +100,21 @@
 						<div class="movie-info">
 							${tvo.movieName }
 						</div>
-						<c:forEach var="i" items="${tvo.hallNumber }" varStatus="status1">
+						<c:forEach var="i" items="${tvo.hallNumbers }" varStatus="status1">
 							<div class="movie-hall">
 								<div class="info-hall">
 								${i }관
 								</div>
-								<c:forEach var="j" items="${tvo.movieStartTime[status1.index] }" varStatus="status2">
+								<div hidden>
+									${i }
+								</div>
+								<c:forEach var="j" items="${tvo.movieStartTimes[status1.index] }" varStatus="status2">
 									<span class="info-time">
 										<c:forEach var="k" items="${j }">
 											<button class="myBtn">
 												${k }
 											</button>
-											<div class="movie-end-time" hidden value="${tvo.movieEndTime[status1.index][status2.index] }">
+											<div class="movie-end-time" hidden value="${tvo.movieEndTimes[status1.index][status2.index] }">
 												${tvo.movieEndTime[status1.index][status2.index] }
 											</div>
 										</c:forEach>
@@ -132,10 +135,18 @@
 		<div class="modal-border">
 			<span class="close">&times;</span>
 			<div class="modal-content">
-				<p class="modal-movie-name"></p>
-				<span class="content1">modal test</span>
-				<span class="content2">modal test</span>
-				<button class="btn-primary">예매하기</button>
+				<form method="get" action="${appRoot }/main/ticketing">
+					<input hidden class="modal-movie-name" type="text" name="movieName"></input>
+					<input hidden type="text" class="movie-month" name="month"></input>
+					<input hidden type="text" class="movie-day" name="day"></input>
+					<input hidden type="text" class="movie-start-time" name="movieStartTime"></input>
+					<input hidden type="text" class="movie-hallNumber" name="hallNumber"></input>
+					<span class="content1">modal test</span>
+					<span class="content2">modal test</span>
+					<button class="btn-primary" type="submit">
+						예매하기
+					</button>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -153,19 +164,41 @@
 	let month = document.querySelector(".today-month").innerHTML;
 	let day = document.querySelector(".today-day").innerHTML;
 	
+	let inputMonth = document.querySelector(".movie-month");
+	let inputDay = document.querySelector(".movie-day");
+	
 	let clickFunction = function(){
 		modal.style.display = "block";
 		let endTime = this.nextElementSibling.innerHTML;
 		content1.innerHTML = this.innerHTML + "~" + endTime;
 		console.log(endTime);
 		
-		let movieName = this.parentNode.parentNode.previousElementSibling.innerHTML;
+		//movie name
+		let movieName = this.parentNode.parentNode.previousElementSibling.innerText;
 		console.log(movieName);
+		modal_movie_name.value = movieName.trim();
 		
-		modal_movie_name.innerHTML = movieName;
+		//date
+		content2.innerHTML = year + "년 " + month + "월 " + day + "일 ";
 		
-		content2.innerHTML = year + "년 " + month + "월 " + day + "일 "
+		//input
+		let test = this.parentNode.parentNode.children[1].innerText.trim();
+		console.log("test " + test);
 		
+		let test2 = $(this).parent().prev().prev().text().trim();
+		console.log("test2 " + test2);
+		
+		inputMonth.value = month;
+		inputDay.value = day;
+		document.querySelector(".movie-start-time").value = this.innerHTML.trim();
+		document.querySelector(".movie-hallNumber").value = this.parentNode.parentNode.children[1].innerText.trim();
+		
+		
+		console.log(inputMonth.value);
+		console.log(inputDay.value);
+		console.log(document.querySelector(".movie-start-time").value);
+		console.log(document.querySelector(".movie-hallNumber").value);
+		console.log(modal_movie_name.value);
 	};
 	for(let i=0; i<btnOpen.length; i++){
 		btnOpen[i].addEventListener("click", clickFunction);

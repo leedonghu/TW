@@ -95,10 +95,10 @@ public class MainServiceImpl implements MainService {
 		int[] hallSize = {138, 158};
 		tvo1.setDay(vo.getDay());
 		tvo1.setMonth(vo.getMonth());
-		tvo1.setMovieStartTime(movieTime);
-		tvo1.setHallNumber(hallNumber);
+		tvo1.setMovieStartTimes(movieTime);
+		tvo1.setHallNumbers(hallNumber);
 		tvo1.setMovieName("가나다라");
-		tvo1.setHallSize(hallSize);
+		tvo1.setHallSizes(hallSize);
 		
 		tvoArr[0] = tvo1;
 		
@@ -108,10 +108,10 @@ public class MainServiceImpl implements MainService {
 		int[] hallSize2 = {120};
 		tvo2.setDay(vo.getDay());
 		tvo2.setMonth(vo.getMonth());
-		tvo2.setMovieStartTime(movieTime2);
-		tvo2.setHallNumber(hallNumber2);
+		tvo2.setMovieStartTimes(movieTime2);
+		tvo2.setHallNumbers(hallNumber2);
 		tvo2.setMovieName("355");
-		tvo2.setHallSize(hallSize2);
+		tvo2.setHallSizes(hallSize2);
 		
 		tvoArr[1] = tvo2;
 		
@@ -121,10 +121,10 @@ public class MainServiceImpl implements MainService {
 		int[] hallSize3 = {156, 183, 126};
 		tvo3.setDay(vo.getDay());
 		tvo3.setMonth(vo.getMonth());
-		tvo3.setMovieStartTime(movieTime3);
-		tvo3.setHallNumber(hallNumber3);
+		tvo3.setMovieStartTimes(movieTime3);
+		tvo3.setHallNumbers(hallNumber3);
 		tvo3.setMovieName("해적");
-		tvo3.setHallSize(hallSize3);
+		tvo3.setHallSizes(hallSize3);
 		
 		tvoArr[2] = tvo3;
 		
@@ -151,7 +151,7 @@ public class MainServiceImpl implements MainService {
 			
 		
 			String[] hallNumber = mapper.hallNumber(movieNames[i]);
-			tvo.setHallNumber(hallNumber);
+			tvo.setHallNumbers(hallNumber);
 			
 			String[][] movieStartTime = new String[hallNumber.length][];
 			String[][] movieEndTime = new String[hallNumber.length][];
@@ -161,8 +161,8 @@ public class MainServiceImpl implements MainService {
 				String[] movieEndTimes = mapper.movieEndTimes(movieNames[i], hallNumber[j], nowTime, today);
 				movieEndTime[j] = movieEndTimes;
 			}
-			tvo.setMovieStartTime(movieStartTime);
-			tvo.setMovieEndTime(movieEndTime);
+			tvo.setMovieStartTimes(movieStartTime);
+			tvo.setMovieEndTimes(movieEndTime);
 			tvoArr[i] = tvo;
 		}
 		
@@ -193,6 +193,44 @@ public class MainServiceImpl implements MainService {
 		int tDay = Integer.parseInt(formatedNow.substring(6));
 		
 		return month == tMonth && day == tDay ? true : false;
+	}
+
+	@Override
+	public int[] ticketing(TicketingVO vo) {
+		int hallSize = mapper.hallSize(vo.getHallNumber());
+		
+		String[] seatName = {"A", "B", "C", "D", "E"};
+		
+		int[] seatArr = new int[2];
+		
+		int lineSize = hallSize / 12;
+		int lastSeat = hallSize % 12;
+		
+		seatArr[0] = lineSize;
+		seatArr[1] = lastSeat;
+		log.info(hallSize);
+		
+		return seatArr;
+	}
+
+	@Override
+	public String[] seatName(int lineSize, int lastSeat) {
+		String[] seatName = {"A", "B", "C", "D", "E"};
+		
+		int k;
+		if(lastSeat == 0) {
+			k = lineSize;
+		}else {
+			k = lineSize + 1;
+		}
+		
+		String[] seatNameArr = new String[k];
+		
+		for(int i = 0; i<=k-1; i++ ) {
+			seatNameArr[i] = seatName[i];
+			log.info(seatNameArr[i]);
+		}
+		return seatNameArr;
 	}
 
 	

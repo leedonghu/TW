@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -69,5 +70,18 @@ public class MainController {
 		return "movieTime";
 		
 		
+	}
+	
+	@GetMapping("/ticketing")
+	public String ticketing(TicketingVO vo, Model model) {
+		int[] seatArr =  service.ticketing(vo);
+		
+		String[] seatName = service.seatName(seatArr[0], seatArr[1]);
+		
+		model.addAttribute("lineSize", seatArr[0]);
+		model.addAttribute("lastSeat", seatArr[1]);
+		
+		model.addAttribute("seatName", seatName);
+		return "ticketing";
 	}
 }
