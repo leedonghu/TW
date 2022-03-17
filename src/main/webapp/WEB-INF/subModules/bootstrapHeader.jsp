@@ -13,6 +13,7 @@
  -->
 
 <script defer src="${pageContext.request.contextPath }/resources/js/all.js"></script>
+<script src="https://kit.fontawesome.com/1a3214f3e3.js" crossorigin="anonymous"></script>
 
 <%--
 security info
