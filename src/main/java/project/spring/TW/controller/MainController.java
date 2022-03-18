@@ -75,6 +75,8 @@ public class MainController {
 	@GetMapping("/ticketing")
 	public String ticketing(TicketingVO vo, Model model) {
 		int[] seatArr =  service.ticketing(vo);
+		log.info(vo.getMovieEndTime());
+		log.info(vo.getMovieStartTime());
 		
 		String[] seatName = service.seatName(seatArr[0], seatArr[1]);
 		
@@ -82,6 +84,8 @@ public class MainController {
 		model.addAttribute("lastSeat", seatArr[1]);
 		
 		model.addAttribute("seatName", seatName);
+		
+		model.addAttribute("tvo", vo);
 		return "ticketing";
 	}
 }

@@ -16,6 +16,42 @@
 	.seat-container{
 		text-align: center;
 	}
+	
+	#modal {
+		display: none;
+		position: fixed;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		background-color: rgb(0,0,0);
+		background-color: rgba(0,0,0,0.4);
+	}
+
+	.modal-border{
+		background-color: #fefefe;
+		margin: 15% auto;
+		padding: 20px;
+		border: 1px solid #888;
+		width: 50%;
+		height: 50%;
+		text-align: center;
+	}
+	
+	.close{
+		color: #aaa;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+	}
+	
+	.close:hover, .close:focus{
+		color: black;
+		text-decoration: none;
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -26,7 +62,7 @@
 	<c:forEach var="i" begin="0" end="${lineSize }" items="${seatName }" varStatus="status">
 		<div class="seat-container">
 			<div class="line${i }">
-				<div>line number ${i }</div>
+				<span>line ${i }</span>
 				<c:choose>
 					<c:when test="${lastSeat eq 0 }">
 						<c:forEach begin="1" end="12" var= "j">
@@ -51,6 +87,17 @@
 			</div>		
 		</div>
 	</c:forEach>
+	
+	<div id="modal">
+		<div class="modal-border">
+			<span class="close">&times;</span>
+			<div class="modal-content">
+				<div class="movie-name"></div>
+				<div class="movie-time"></div>
+				<div class="movie-hallNumber"></div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -60,13 +107,28 @@
 	console.log(seatSize);
 	console.log(lastSeat);
 	
+	//tvo
+	let movie_name = "${tvo.movieName}";
+	let movie_start_time = "${tvo.movieStartTime}";
+	let movie_end_time = "${tvo.movieEndTime}";
+	let movie_hall_number = "${tvo.hallNumber}";
+	
 	let clickFunction = function(){
 		console.log(this.getAttribute("id"));
+		modal.style.display = "block";
+		
+		document.querySelector(".movie-name").innerText = movie_name;
+		document.querySelector(".movie-time").innerText = movie_start_time + " ~ " + movie_end_time;
+		document.querySelector(".movie-hallNumber").innerText = movie_hall_number;
 	}
 	
 	for(let i=0; i<seatSize+lastSeat; i++){
 		seat[i].addEventListener("click",clickFunction);
 	}
+	
+	document.querySelector(".close").addEventListener("click", function(){
+		modal.style.display = "none";
+	})
 	
 </script>
 </body>

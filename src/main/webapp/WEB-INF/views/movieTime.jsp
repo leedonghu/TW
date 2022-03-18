@@ -115,7 +115,7 @@
 												${k }
 											</button>
 											<div class="movie-end-time" hidden value="${tvo.movieEndTimes[status1.index][status2.index] }">
-												${tvo.movieEndTime[status1.index][status2.index] }
+												${tvo.movieEndTimes[status1.index][status2.index] }
 											</div>
 										</c:forEach>
 									</span>
@@ -140,6 +140,7 @@
 					<input hidden type="text" class="movie-month" name="month"></input>
 					<input hidden type="text" class="movie-day" name="day"></input>
 					<input hidden type="text" class="movie-start-time" name="movieStartTime"></input>
+					<input hidden type="text" class="movie-end-time" name="movieEndTime"/>
 					<input hidden type="text" class="movie-hallNumber" name="hallNumber"></input>
 					<span class="content1">modal test</span>
 					<span class="content2">modal test</span>
@@ -169,36 +170,45 @@
 	
 	let clickFunction = function(){
 		modal.style.display = "block";
-		let endTime = this.nextElementSibling.innerHTML;
+		let endTime = this.nextElementSibling.innerText.trim();
 		content1.innerHTML = this.innerHTML + "~" + endTime;
-		console.log(endTime);
+		//console.log(endTime);
 		
 		//movie name
-		let movieName = this.parentNode.parentNode.previousElementSibling.innerText;
-		console.log(movieName);
-		modal_movie_name.value = movieName.trim();
+		let movieName = this.parentNode.parentNode.parentNode.childNodes;
+		let movieName2;
+		for(let i=0; i<movieName.length; i++){
+			//console.log(i + "." + movieName[i].className);
+			if(movieName[i].className == "movie-info"){
+				movieName2 = movieName[i].innerText;
+			}
+		}
+		//console.log("movie_name " +movieName2);
+		modal_movie_name.value = movieName2;
 		
 		//date
 		content2.innerHTML = year + "년 " + month + "월 " + day + "일 ";
 		
 		//input
 		let test = this.parentNode.parentNode.children[1].innerText.trim();
-		console.log("test " + test);
+		//console.log("test " + test);
 		
 		let test2 = $(this).parent().prev().prev().text().trim();
-		console.log("test2 " + test2);
+		//console.log("test2 " + test2);
 		
 		inputMonth.value = month;
 		inputDay.value = day;
 		document.querySelector(".movie-start-time").value = this.innerHTML.trim();
 		document.querySelector(".movie-hallNumber").value = this.parentNode.parentNode.children[1].innerText.trim();
+		document.querySelector(".movie-end-time").value = endTime;
 		
 		
-		console.log(inputMonth.value);
-		console.log(inputDay.value);
-		console.log(document.querySelector(".movie-start-time").value);
-		console.log(document.querySelector(".movie-hallNumber").value);
-		console.log(modal_movie_name.value);
+		console.log("month " + inputMonth.value);
+		console.log("day " + inputDay.value);
+		console.log("start time " + document.querySelector(".movie-start-time").value);
+		console.log("end time " + document.querySelector(".movie-end-time").value);
+		console.log("hall number " + document.querySelector(".movie-hallNumber").value);
+		console.log("movie name " + modal_movie_name.value);
 	};
 	for(let i=0; i<btnOpen.length; i++){
 		btnOpen[i].addEventListener("click", clickFunction);
