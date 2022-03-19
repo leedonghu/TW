@@ -233,6 +233,19 @@ public class MainServiceImpl implements MainService {
 		return seatNameArr;
 	}
 
+	@Override
+	public String movieEndTime(String movieName, String movieStartTime, String hallNumber) {
+		String movieEndTime = mapper.movieEndTime(movieName, movieStartTime, hallNumber);
+		return movieEndTime;
+	}
+
+	@Override
+	public void reservation(TicketingVO vo) {
+		int cnt = mapper.reservation(vo);
+		log.info("cnt" + cnt);
+		
+	}
+
 	
 
 }

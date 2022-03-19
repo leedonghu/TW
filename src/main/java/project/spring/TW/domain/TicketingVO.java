@@ -17,4 +17,7 @@ public class TicketingVO {
 	private String hallNumber;
 	private String movieEndTime;
 	private int hallSize;
+	private String seatNumber;
+	private String userId;
+	
 }

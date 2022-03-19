@@ -140,7 +140,7 @@
 					<input hidden type="text" class="movie-month" name="month"></input>
 					<input hidden type="text" class="movie-day" name="day"></input>
 					<input hidden type="text" class="movie-start-time" name="movieStartTime"></input>
-					<input hidden type="text" class="movie-end-time" name="movieEndTime"/>
+					<input hidden type="text" class="movie-end-time" name="movieEndTime"></input>
 					<input hidden type="text" class="movie-hallNumber" name="hallNumber"></input>
 					<span class="content1">modal test</span>
 					<span class="content2">modal test</span>
@@ -209,6 +209,10 @@
 		console.log("end time " + document.querySelector(".movie-end-time").value);
 		console.log("hall number " + document.querySelector(".movie-hallNumber").value);
 		console.log("movie name " + modal_movie_name.value);
+		
+		if( document.querySelector(".movie-end-time").value == " " ||  document.querySelector(".movie-end-time").value == null ){
+			document.querySelector(".btn-primary").setAttribute("disabled", "disabled");
+		}
 	};
 	for(let i=0; i<btnOpen.length; i++){
 		btnOpen[i].addEventListener("click", clickFunction);

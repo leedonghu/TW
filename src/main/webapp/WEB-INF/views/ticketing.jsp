@@ -92,9 +92,20 @@
 		<div class="modal-border">
 			<span class="close">&times;</span>
 			<div class="modal-content">
-				<div class="movie-name"></div>
-				<div class="movie-time"></div>
-				<div class="movie-hallNumber"></div>
+				<form action="${appRoot }/main/reservation" method="get">
+					<input class="movie-name" type="text" name="movieName" value=""></input>
+					<input class="movie-time" type="text"></input>
+					<input  hidden class="movie-start-time" type="text" name="movieStartTime" value=""></input>
+					<input  hidden class="movie-end-time" type="text" name="movieEndTime" value=""></input>
+					<input class="movie-hallNumber" type="text" name="hallNumber" value=""></input>
+					<input class="seat-number-p" type="text" value=""></input>
+					<input  hidden class="seat-number" type="text" name="seatNumber" value=""></input>
+					<input hidden class="movie-month" type="text" name="month" value="">
+					<input hidden class="movie-day" type="text" name="day" value="">
+					<input hidden class="user-id" type="text" name="userId" value="">
+					<button class="btn-primary" type="submit">예매하기</button>
+				</form>
+				
 			</div>
 		</div>
 	</div>
@@ -112,14 +123,24 @@
 	let movie_start_time = "${tvo.movieStartTime}";
 	let movie_end_time = "${tvo.movieEndTime}";
 	let movie_hall_number = "${tvo.hallNumber}";
+	let movie_month = "${tvo.month}";
+	let movie_day = "${tvo.day}";
+	let user_id = "${pinfo.username}";
 	
 	let clickFunction = function(){
 		console.log(this.getAttribute("id"));
 		modal.style.display = "block";
 		
-		document.querySelector(".movie-name").innerText = movie_name;
-		document.querySelector(".movie-time").innerText = movie_start_time + " ~ " + movie_end_time;
-		document.querySelector(".movie-hallNumber").innerText = movie_hall_number;
+		document.querySelector(".movie-name").value = movie_name;
+		document.querySelector(".movie-time").value = movie_start_time + " ~ " + movie_end_time;
+		document.querySelector(".movie-hallNumber").value = movie_hall_number;
+		document.querySelector(".seat-number-p").value = this.getAttribute("id") + "좌석";
+		document.querySelector(".seat-number").value = this.getAttribute("id");
+		document.querySelector(".movie-start-time").value = movie_start_time;
+		document.querySelector(".movie-end-time").value = movie_end_time;
+		document.querySelector(".movie-month").value = movie_month;
+		document.querySelector(".movie-day").value = movie_day;
+		document.querySelector(".user-id").value = user_id;
 	}
 	
 	for(let i=0; i<seatSize+lastSeat; i++){

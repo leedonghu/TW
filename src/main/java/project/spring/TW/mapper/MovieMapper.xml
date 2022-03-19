@@ -74,5 +74,20 @@
 	WHERE hall_number = #{hallNumber}
 </select>
 
+<select id="movieEndTime" resultType="String">
+	SELECT movie_end_time
+	FROM MOVIE_INFO
+	WHERE movie_name = #{movieName}
+		  and hall_number = #{hallNumber}
+		  and movie_start_time = #{movieStartTime}
+</select>
+
+<insert id="reservation">
+	INSERT INTO MOVIE_RESERVATION
+	(userId, movie_name, movie_start_time, movie_end_time, hall_number, seat_number)
+	VALUES
+	("${userId}", "${movieName}", "${movieStartTime}", "${movieEndTime}", "${hallNumber}", "${seatNumber}")
+</insert>
+
 
 </mapper>

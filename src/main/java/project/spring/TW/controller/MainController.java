@@ -2,7 +2,6 @@ package project.spring.TW.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,16 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import project.spring.TW.domain.DateVO;
 import project.spring.TW.domain.TicketingVO;
+import project.spring.TW.domain.UserVO;
 import project.spring.TW.service.MainService;
 
 @Controller
@@ -77,7 +73,11 @@ public class MainController {
 		int[] seatArr =  service.ticketing(vo);
 		log.info(vo.getMovieEndTime());
 		log.info(vo.getMovieStartTime());
+		log.info(vo.getMovieName());
+		log.info(vo.getHallNumber());
 		
+		String movieEndTime = service.movieEndTime(vo.getMovieName(), vo.getMovieStartTime(), vo.getHallNumber());
+		vo.setMovieEndTime(movieEndTime);
 		String[] seatName = service.seatName(seatArr[0], seatArr[1]);
 		
 		model.addAttribute("lineSize", seatArr[0]);
@@ -87,5 +87,15 @@ public class MainController {
 		
 		model.addAttribute("tvo", vo);
 		return "ticketing";
+	}
+	
+	@GetMapping("/reservation")
+	public String reservation(TicketingVO vo, UserVO uvo, Model model) {
+		vo.setUserId(uvo.getUserId());
+		
+		service.reservation(vo);
+		model.addAttribute("tvo", vo);
+		
+		return "reservation";
 	}
 }

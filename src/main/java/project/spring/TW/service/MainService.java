@@ -16,5 +16,9 @@ public interface MainService {
 
 	public String[] seatName(int lineSize, int lastSeat);
 
+	public String movieEndTime(String movieName, String movieStartTime, String hallNumber);
+
+	public void reservation(TicketingVO vo);
+
 	
 }
