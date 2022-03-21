@@ -28,22 +28,5 @@
 	});
 	
 	
-	var disableSubmit = function() {
-		
-		var allTyped = true;
-		$("#form1 input").each(function(i, elem) {
-			allTyped = allTyped && ($(this).val() != '');
-		});
-		
-		if (allTyped) {
-			$("#btn3").removeAttr("disabled");
-		} else {
-			$("#btn3").attr("disabled", "disabled");
-		}
-	};
 	
-	$("#form1 input").on({
-		"mouseup" : disableSubmit,
-		"keyup" : disableSubmit,
-		"change" : disableSubmit
-	});
+	
