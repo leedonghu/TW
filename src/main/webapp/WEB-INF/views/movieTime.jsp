@@ -72,11 +72,10 @@ body {
 	width: 60px;
 }
 
-.modal-content{
+.modal_content{
 	position: relative;
 	border: none;
-	border-bottom: 1px solid #999;
-	border-top: 1px solid #999;
+	
 }
 
 
@@ -98,7 +97,7 @@ body {
 
 
 
-.modal {
+.myModal {
 	display: none;
 	position: fixed;
 	z-index: 1;
@@ -111,13 +110,15 @@ body {
 	background-color: rgba(0,0,0,0.4);
 }
 
-.modal-border{
+.modal_border{
 	background-color: #fefefe;
 	margin: 15% auto;
 	padding: 20px;
-	border: 1px solid #888;
+	
 	width: 50%;
 	height: 50%;
+	justify-content: center;
+	align-items: center;
 	text-align: center;
 }
 
@@ -131,6 +132,7 @@ body {
 	float: right;
 	font-size: 28px;
 	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 .close:hover, .close:focus{
@@ -139,29 +141,34 @@ body {
 	cursor: pointer;
 }
 
-
-.modal-bg{
-	
-	position: fixed;
-	width: 100%;
-	height: 100vh;
-	top: 0;
-	left: 0;
-	background-color: rgba(0,0,0,0.5);
-	display: none;
-	justify-content: center;
-	align-items: center;
+.mname{
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
-.modal2{
-	background-color: white;
-	width: 40%;
-	height: 60%;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	flex-direction: column;
+.seat-img{
+	width: 50%;
+	height: 50%;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
+
+.content1{
+	margin-bottom: 20px;
+	margin-left: -10px;
+}
+
+.seat-button{
+	width:50%;
+	height: 50px;
+	background: #166cea;
+	color: #fff;
+	font-size: 20px;
+	border: none;
+	border-radius: 25px;
+	cursor: pointer;
+}
+
 
 </style>
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
@@ -237,13 +244,14 @@ body {
 	</div>
 	<!-- modal -->
 	
-	<div id="myModal" class="modal">
-		<div class="modal-border">
+	<div id="myModal" class="myModal">
+		<div class="modal_border">
 			<span class="close">&times;</span>
-			<div class="modal-content">
+			<div class="modal_content">
 				<h2 class="mname"></h2>
-					<span class="content2"></span>
-					<span class="content1"></span>
+				<h6 class="content1"></h6>
+				<div class="content2"></div>
+				<img alt="" src="" class="seat-img">
 				
 				<form method="get" action="${appRoot }/main/ticketing">
 					<input hidden class="modal-movie-name" type="text" name="movieName"></input>
@@ -252,32 +260,20 @@ body {
 					<input hidden type="text" class="movie-start-time" name="movieStartTime"></input>
 					<input hidden type="text" class="movie-end-time" name="movieEndTime"></input>
 					<input hidden type="text" class="movie-hallNumber" name="hallNumber"></input>
-					<button class="btn-primary" type="submit">
-						예매하기
+					<button class="seat-button" type="submit">
+						좌석 선택
 					</button>
 				</form>
 			</div>
 		</div>
 	</div>
 	
-	<!-- modal2 -->
-	<div class="modal-bg">
-		<div class="modal2">
-			<h2 class="mname">가나</h2>
-			<input  class="movie-name" type="text" name="movieName"></input>
-			<input  type="text" class="movie-month" name="month"></input>
-			<input  type="text" class="movie-day" name="day"></input>
-			<input  type="text" class="movie-start-time" name="movieStartTime"></input>
-			<input  type="text" class="movie-end-time" name="movieEndTime"></input>
-			<input  type="text" class="movie-hallNumber" name="hallNumber"></input>
-			<span class="content1">modal test</span>
-			<span class="content2">modal test</span>
-		</div>
-	</div>
+	
+
 
 
 <script type="text/javascript">
-	let modal = document.querySelector(".modal");
+	let modal = document.querySelector(".myModal");
 	let modal2 = document.querySelector(".modal-bg");
 	
 	let btnOpen = document.querySelectorAll(".myBtn");
@@ -296,7 +292,8 @@ body {
 	let clickFunction = function(){
 		modal.style.display = "block";
 		let endTime = this.nextElementSibling.innerText.trim();
-		content1.innerHTML = this.innerHTML + "~" + endTime;
+		//date
+		content2.innerHTML =   year + "년 " + month + "월 " + day + "일 " + " / " + this.innerText + "~" + endTime;
 		//console.log(endTime);
 		
 		//movie name
@@ -313,8 +310,7 @@ body {
 		document.querySelector(".mname").innerText = movieName2;
 		
 		
-		//date
-		content2.innerText = year + "년 " + month + "월 " + day + "일 ";
+		
 		
 		//input
 		let test = this.parentNode.parentNode.children[1].innerText.trim();
@@ -328,6 +324,17 @@ body {
 		document.querySelector(".movie-start-time").value = this.innerHTML.trim();
 		document.querySelector(".movie-hallNumber").value = this.parentNode.parentNode.children[1].innerText.trim();
 		document.querySelector(".movie-end-time").value = endTime;
+		
+		//seat img
+		let hn = document.querySelector(".movie-hallNumber").value;
+		content1.innerHTML = hn + "관";
+		if(hn == 3 || hn == 7){
+			document.querySelector(".seat-img").setAttribute("src", "${appRoot}/resources/img/46seat.png");
+		}else if(hn == 2 || hn == 4 || hn == 6){
+			document.querySelector(".seat-img").setAttribute("src", "${appRoot}/resources/img/50seat.png");
+		}else{
+			document.querySelector(".seat-img").setAttribute("src", "${appRoot}/resources/img/60seat.png");
+		}
 		
 		
 		console.log("month " + inputMonth.value);

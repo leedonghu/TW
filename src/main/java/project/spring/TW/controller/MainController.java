@@ -71,10 +71,7 @@ public class MainController {
 	@GetMapping("/ticketing")
 	public String ticketing(TicketingVO vo, Model model) {
 		int[] seatArr =  service.ticketing(vo);
-		log.info(vo.getMovieEndTime());
-		log.info(vo.getMovieStartTime());
-		log.info(vo.getMovieName());
-		log.info(vo.getHallNumber());
+		
 		
 		String movieEndTime = service.movieEndTime(vo.getMovieName(), vo.getMovieStartTime(), vo.getHallNumber());
 		vo.setMovieEndTime(movieEndTime);

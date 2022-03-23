@@ -208,7 +208,9 @@ public class MainServiceImpl implements MainService {
 		
 		seatArr[0] = lineSize;
 		seatArr[1] = lastSeat;
-		log.info(hallSize);
+		log.info("hallSize" +  hallSize);
+		log.info("lineSize " + lineSize);
+		log.info("lastSeat " + lastSeat);
 		
 		return seatArr;
 	}

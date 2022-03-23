@@ -13,11 +13,49 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Insert title here</title>
 <style type="text/css">
-	.seat-container{
-		text-align: center;
+
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		font-family: 'Noto Sans KR', sans-serif;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+		width: 100%;
 	}
 	
-	#modal {
+	.theater{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		
+	}
+	
+	.screen{
+		margin-bottom: 50px;
+	}
+	
+	.seat{
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		width: 100%;
+		
+	}
+	
+	.seat-container{
+		width: 100%;
+		margin-left: 190px;
+	}
+	
+	#myModal {
 		display: none;
 		position: fixed;
 		z-index: 1;
@@ -30,7 +68,7 @@
 		background-color: rgba(0,0,0,0.4);
 	}
 
-	.modal-border{
+	.modal_border{
 		background-color: #fefefe;
 		margin: 15% auto;
 		padding: 20px;
@@ -52,46 +90,67 @@
 		text-decoration: none;
 		cursor: pointer;
 	}
+	
+	.line{
+		display: flex;
+		
+	}
+	
+	
+	.seat-line{
+		display: flex;
+		margin-left: 20px;
+	}
+	
+	
+	
 </style>
 </head>
 <body>
-<div class="container">
-	success
-	<i class="fa-solid fa-1"></i>
-	<i class="fa-solid fa-couch fa-rotate-90"></i>
-	<c:forEach var="i" begin="0" end="${lineSize }" items="${seatName }" varStatus="status">
-		<div class="seat-container">
-			<div class="line${i }">
-				<span>line ${i }</span>
-				<c:choose>
-					<c:when test="${lastSeat eq 0 }">
-						<c:forEach begin="1" end="12" var= "j">
-							<span id="${i  }${j}" class="seat"><i class="fa-solid fa-couch"></i></span>
-						</c:forEach>
-					</c:when>
-					<c:when test="${lastSeat ne 0}">
-						<c:choose>
-							<c:when test="${status.index ne lineSize }">
-								<c:forEach begin="1" end="12" var= "j">
-									<span id="${i  }${j}" class="seat"><i class="fa-solid fa-couch"></i></span>
-								</c:forEach>
-							</c:when>
-							<c:when test="${status.index eq lineSize }">
-								<c:forEach begin="1" end="${lastSeat }" var= "j">
-									<span id="${i  }${j}" class="seat"><i class="fa-solid fa-couch"></i></span>
-								</c:forEach>
-							</c:when>
-						</c:choose>
-					</c:when>
-				</c:choose>
-			</div>		
+	<div class="theater">
+		<div class="screen">
+			<img alt="" src="${appRoot }/resources/img/screen.png">
 		</div>
-	</c:forEach>
-	
-	<div id="modal">
-		<div class="modal-border">
+		<div class="seat">
+			<c:forEach var="i" begin="0" end="${lineSize }" items="${seatName }" varStatus="status">
+				<div class="seat-container">
+					<div id="line${i }" class="line">
+						<div class="line-name">
+							<div>${i } 열</div>
+						</div>
+						<div class="seat-line">
+							<c:choose>
+								<c:when test="${lastSeat eq 0 }">
+									<c:forEach begin="1" end="12" var= "j">
+										<span id="${i  }${j}" class="seat"><i class="fa-solid fa-couch"></i></span>
+									</c:forEach>
+								</c:when>
+								<c:when test="${lastSeat ne 0}">
+									<c:choose>
+										<c:when test="${status.index ne lineSize }">
+											<c:forEach begin="1" end="12" var= "j">
+												<span id="${i  }${j}" class="seat"><i class="fa-solid fa-couch"></i></span>
+											</c:forEach>
+										</c:when>
+										<c:when test="${status.index eq lineSize }">
+											<c:forEach begin="1" end="${lastSeat }" var= "j">
+												<span id="${i  }${j}" class="seat"><i class="fa-solid fa-couch"></i></span>
+											</c:forEach>
+										</c:when>
+									</c:choose>
+								</c:when>
+							</c:choose>
+						</div>
+					</div>		
+				</div>
+			</c:forEach>
+	</div>
+		
+	</div>
+	<div id="myModal">
+		<div class="modal_border">
 			<span class="close">&times;</span>
-			<div class="modal-content">
+			<div class="modal_content">
 				<form action="${appRoot }/main/reservation" method="get">
 					<input class="movie-name" type="text" name="movieName" value=""></input>
 					<input class="movie-time" type="text"></input>
@@ -109,12 +168,13 @@
 			</div>
 		</div>
 	</div>
-</div>
+
 
 <script type="text/javascript">
 	let seatSize = ${lineSize} * 12;
 	let lastSeat = ${lastSeat};
 	let seat = document.querySelectorAll(".seat");
+	let modal = document.querySelector("#myModal");
 	console.log(seatSize);
 	console.log(lastSeat);
 	
@@ -150,6 +210,16 @@
 	document.querySelector(".close").addEventListener("click", function(){
 		modal.style.display = "none";
 	})
+	
+	let lastLine = document.querySelector(".seat").lastElementChild.firstElementChild.lastElementChild;
+	if(seatSize + lastSeat == 46){
+		
+		lastLine.style.cssText = "margin-left : 40px;";
+	} else if(seatSize + lastSeat == 50){
+		lastLine.style.cssText = "margin-left : 123px;";
+		
+	}
+	console.log(lastLine);
 	
 </script>
 </body>
