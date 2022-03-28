@@ -110,6 +110,8 @@ body {
 	background-color: rgba(0,0,0,0.4);
 }
 
+
+
 .modal_border{
 	background-color: #fefefe;
 	margin: 15% auto;
@@ -120,6 +122,14 @@ body {
 	justify-content: center;
 	align-items: center;
 	text-align: center;
+}
+
+
+@media(min-width:810px){
+	.modal_border{
+		height: 70%;
+		width: 30%;
+	}
 }
 
 .modal-movie-name{

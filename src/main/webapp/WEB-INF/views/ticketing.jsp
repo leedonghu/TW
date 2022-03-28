@@ -29,8 +29,20 @@
 		width: 100%;
 	}
 	
+	body::before {
+	content: "";
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+	
 	.theater{
 		display: flex;
+		z-index: 2;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
@@ -46,19 +58,24 @@
 		display: flex;
 		flex-direction: column;
 		text-align: center;
-		width: 100%;
+		
 		
 	}
 	
 	.seat-container{
 		width: 100%;
-		margin-left: 190px;
+		margin-left: -15px;
+	}
+	
+	.line-name{
+		margin-left: -5px;
+		width: 50px;
 	}
 	
 	#myModal {
 		display: none;
 		position: fixed;
-		z-index: 1;
+		z-index: 3;
 		left: 0;
 		top: 0;
 		width: 100%;
@@ -151,13 +168,18 @@
 		<div class="modal_border">
 			<span class="close">&times;</span>
 			<div class="modal_content">
+				<h2 class="movie-name-c"></h2>
+				<h6 class="movie-time-c"></h6>
+				<div class="movie-hallNumber-c"></div>
+				<div class="seat-number-c"></div>
 				<form action="${appRoot }/main/reservation" method="get">
-					<input class="movie-name" type="text" name="movieName" value=""></input>
-					<input class="movie-time" type="text"></input>
+					
+					<input hidden class="movie-name" type="text" name="movieName" value=""></input>
+					<input hidden class="movie-time" type="text"></input>
+					<input hidden class="movie-hallNumber" type="text" name="hallNumber" value=""></input>
+					<input hidden class="seat-number-p" type="text" value=""></input>
 					<input  hidden class="movie-start-time" type="text" name="movieStartTime" value=""></input>
 					<input  hidden class="movie-end-time" type="text" name="movieEndTime" value=""></input>
-					<input class="movie-hallNumber" type="text" name="hallNumber" value=""></input>
-					<input class="seat-number-p" type="text" value=""></input>
 					<input  hidden class="seat-number" type="text" name="seatNumber" value=""></input>
 					<input hidden class="movie-month" type="text" name="month" value="">
 					<input hidden class="movie-day" type="text" name="day" value="">
@@ -175,8 +197,8 @@
 	let lastSeat = ${lastSeat};
 	let seat = document.querySelectorAll(".seat");
 	let modal = document.querySelector("#myModal");
-	console.log(seatSize);
-	console.log(lastSeat);
+	//console.log(seatSize);
+	//console.log(lastSeat);
 	
 	//tvo
 	let movie_name = "${tvo.movieName}";
@@ -189,7 +211,13 @@
 	
 	let clickFunction = function(){
 		console.log(this.getAttribute("id"));
+		console.log(this);
 		modal.style.display = "block";
+		
+		document.querySelector(".movie-name-c").innerText = movie_name;
+		document.querySelector(".movie-time-c").innerText = movie_start_time + " ~ " + movie_end_time;
+		document.querySelector(".movie-hallNumber-c").innerText = movie_hall_number;
+		document.querySelector(".seat-number-c").innerText = this.getAttribute("id") + "좌석";
 		
 		document.querySelector(".movie-name").value = movie_name;
 		document.querySelector(".movie-time").value = movie_start_time + " ~ " + movie_end_time;
@@ -219,7 +247,7 @@
 		lastLine.style.cssText = "margin-left : 123px;";
 		
 	}
-	console.log(lastLine);
+	//console.log(lastLine);
 	
 </script>
 </body>
